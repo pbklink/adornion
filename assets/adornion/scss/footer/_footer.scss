@@ -1,0 +1,73 @@
+@use 'libs/color/color';
+
+@mixin _base {
+    footer {
+        display: flex;
+        align-items: center;
+        background-color: color.get(color.$footer-background);
+        color: color.get(color.$footer-foreground);
+        font-size: smaller;
+
+        .container {
+            display: flex;
+            justify-content: space-between;
+
+            .contact {
+                display: flex;
+                gap: 3em;
+            }
+        }
+
+        a {
+            color: inherit;
+            border-bottom-color: transparentize(color.get(footer-anchor-bottom-border), 0.75);
+
+            &:hover {
+                color: color.get(color.$footer-anchor-hover-foreground);
+                border-bottom-color: transparent;
+            }
+        }
+
+        .media-size-display {
+            float: right;
+            font-size: xx-small;
+            margin-left: 2em;
+        }
+    }
+}
+
+@mixin _footer-no-email {
+    @include _base;
+
+    footer .container .contact #email {
+        display: none;
+    }
+}
+
+@mixin infinite {
+    @include _base;
+}
+
+@mixin wide {
+    @include _base;
+}
+
+@mixin normal {
+    @include _base;
+}
+
+@mixin narrow {
+    @include _base;
+}
+
+@mixin narrower {
+    @include _base;
+}
+
+@mixin mobile {
+    @include _footer-no-email;
+}
+
+@mixin mobilep {
+    @include _footer-no-email;
+}

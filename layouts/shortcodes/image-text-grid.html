@@ -1,0 +1,42 @@
+{{ $frontMatterParamName := .Get "frontMatterParamName" }}
+{{ $map := index $.Page.Params $frontMatterParamName }}
+{{ $sectionClass := .Get "sectionClass" }}
+{{ with $map }}
+    <section {{ with $sectionClass }} class="{{ . }}"{{ end }}>
+        <div class="image-text-grid">
+            {{- range . }}
+                {{ $image := .image }}
+                {{ $url := .url }}
+                {{ if $image }}
+                    {{ $getMatchResourcePath := newScratch }}
+
+                    {{ $getMatchResourcePath.Set "page" $.Page }}
+                    {{ $getMatchResourcePath.Set "resourcePath" $image.resourcePath }}
+                    {{ $imageResource := partial "get-match-resource-path.html" $getMatchResourcePath }}
+
+                    {{ $imgParams := newScratch }}
+                    {{ $imgParams.Set "src" $image.resourcePath }}
+                    {{ $imgParams.Set "class" $image.class }}
+                    {{ $imgParams.Set "alt" $image.alt }}
+                    {{ $imgParams.Set "title" $image.title }}
+                    {{ $imgParams.Set "height" $image.height }}
+                    {{ $imgParams.Set "width" $image.width }}
+                    {{ $imgParams.Set "loading" $image.loading }}
+                    {{ $imgParams.Set "linkUrl" $url }}
+                    {{ $imgParams.Set "anchorClass" $image.anchorClass }}
+
+                    {{ partial "img.html" $imgParams }}
+                {{ else }}
+                    <div></div>
+                {{ end }}
+                <div>
+                    {{ if $url }}
+                        <a href="{{ $url }}">{{ .name }}</a>
+                    {{ else }}
+                        {{ .name }}
+                    {{ end }}
+                </div>
+            {{- end }}
+        </div>
+    </section>
+{{ end }}

@@ -1,0 +1,12 @@
+{{ if isset . "iconUrl" }}
+    {{ partial
+        "contained-linked-image.html"
+        (
+            dict
+                "containerClass" .containerClass
+                "linkUrl" .linkUrl
+                "imageUrl" .iconUrl
+                "title" .title
+        )
+    }}
+{{ end }}

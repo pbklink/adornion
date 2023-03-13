@@ -1,0 +1,18 @@
+{{ partial "image-setheight.html"
+  (dict 
+    "backgroundUrl" .backgroundUrl
+    "heading" .heading
+    "subheading" .subheading
+    "content" .content
+    "backgroundPosition" .backgroundPosition
+    "backgroundColor" .backgroundColor
+    "backgroundSize" .backgroundSize
+    "gradientStartColor" (.gradientStartColor | default "#000000FF")
+    "gradientStartPosition" .gradientStartPosition
+    "gradientMidPosition" .gradientMidPosition
+    "gradientFinishColor" (.gradientFinishColor | default "#FFFFFF00")
+    "gradientFinishPosition" .gradientFinishPosition
+    "gradientDirection" .gradientDirection
+  )
+}}
+

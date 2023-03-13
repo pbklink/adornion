@@ -1,0 +1,10 @@
+{{ define "main" }}
+
+    <section class="container">
+        {{ $date := .Date }}
+        {{ if $date}}
+            <div class="article-date">{{ $date.Format .Site.Params.dateformat }}</div>
+        {{ end}}
+    </section>
+    {{ .Content }}
+{{ end }}

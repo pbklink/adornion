@@ -1,0 +1,13 @@
+{{ $resourcePath := .Get "resourcePath" }}
+{{ $page := .Get "page" }}
+
+{{ $resource := resources.GetMatch $resourcePath }}
+{{ if not $resource }}
+    {{ if not $resourcePath }}
+        {{ errorf "'%s': resource name not defined" $page }}
+    {{ else }}
+        {{ errorf "'%s': resource '%s' not found" $page $resourcePath }}
+    {{ end }}
+{{ end }}
+
+{{ return $resource }}

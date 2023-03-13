@@ -1,0 +1,143 @@
+@use 'libs/breakpoint';
+@use 'libs/color/color';
+
+@mixin _page-band-base {
+    width: 100%;
+}
+
+@mixin _base {
+    #page-wrapper {
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+    }
+    
+    .page-band {
+        &-background-a {
+            @include _page-band-base;
+            background-color: color.get(color.$page-band-a-background);
+        }
+    
+        &-background-b {
+            @include _page-band-base;
+            background-color: color.get(color.$page-band-b-background);
+        }
+    
+        &-background-c {
+            @include _page-band-base;
+            background-color: color.get(color.$page-band-c-background);
+        }
+    }
+    
+    .container {
+        margin: 0 auto;
+        max-width: 100%;
+    }
+    
+    .center {
+        text-align: center;
+    }
+    
+    .article-date {
+        font-size: 75%;
+        float: right;
+    }
+
+    .viewport-filler {
+        flex: 1 1 auto;
+    }
+
+    .single-column-band {
+        margin: 0.8em 13em;
+    }
+
+    .pagination-default {
+        display: flex;
+        justify-content: space-evenly;
+        list-style-type: none;
+
+        .disabled a, .active a {
+            color: color.get(color.$pagination-default-disabled-active-anchor-foreground);
+        }
+    }
+}
+
+@mixin infinite {
+    @include _base;
+
+    .container {
+        width: 1400px;
+    }
+}
+
+@mixin wide {
+    @include _base;
+
+    .container {
+        width: 1200px;
+    }
+
+    .single-column-band {
+        margin: 0.65em 10em;
+    }
+}
+
+@mixin normal {
+    @include _base;
+
+    .container {
+        width: 960px;
+    }
+
+    .single-column-band {
+        margin: 0.5em 7em;
+    }
+}
+
+@mixin narrow {
+    @include _base;
+
+    .container {
+        width: 95%;
+    }
+
+    .single-column-band {
+        margin: 0.25em 3em;
+    }
+}
+
+@mixin narrower {
+    @include _base;
+
+    .container {
+        width: 100%;
+    }
+
+    .single-column-band {
+        margin: 0.1em 1em;
+    }
+}
+
+@mixin mobile {
+    @include _base;
+
+    .container {
+        width: 100%;
+    }
+
+    .single-column-band {
+        margin: 0.05em 0.3em;
+    }
+}
+
+@mixin mobilep {
+    @include _base;
+
+    .container {
+        width: 100%;
+    }
+
+    .single-column-band {
+        margin: 0.025em 0.2em;
+    }
+}

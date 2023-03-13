@@ -1,0 +1,18 @@
+<menu class="headlined-dated-menu">
+    {{ $headlinedDatedContainerPageUrl := .Get "headlinedDatedContainerPageUrl" }}
+    {{ $maxCount := .Get "maxCount" }}
+
+    {{ $headlinedDatedContainerPage := site.GetPage $headlinedDatedContainerPageUrl }}
+
+    {{ $headlinedDatedPages := $headlinedDatedContainerPage.RegularPagesRecursive }}
+    {{ if gt (len $headlinedDatedPages) 0 }}
+        {{ range first $maxCount $headlinedDatedPages.ByDate.Reverse }}
+            <span class="menu-item">
+                <a href="{{ .Page.RelPermalink }}">{{ .Page.Params.headline }}</a>
+            </span>
+            <span class="menu-sub-item">
+                <a href="{{ .Page.RelPermalink }}">{{ .Page.Date.Format .Site.Params.dateformat }}</a>
+            </span>
+        {{ end }}
+    {{ end }}
+</menu>

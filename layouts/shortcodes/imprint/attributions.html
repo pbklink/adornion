@@ -1,0 +1,17 @@
+<section class="imprint-attributions-grid-container">
+    <span class="imprint-grid-heading">Item</span>
+    <span class="imprint-grid-heading">Type</span>
+    <span class="imprint-grid-heading">Location</span>
+    <span class="imprint-grid-heading">Creator</span>
+    <span class="imprint-grid-heading">Source</span>
+    <span class="imprint-grid-heading">Adjustments</span>
+    <span class="imprint-grid-heading">License</span>
+
+    {{ with .Site.Data.attributions }}
+        {{ partial "external-attributions.html" . }}
+    {{ end }}
+
+    {{ with .Site.Data.adornionattributions }}
+        {{ partial "external-attributions.html" . }}
+    {{ end }}
+</section>

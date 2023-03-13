@@ -1,0 +1,16 @@
+{{ if isset .Params "photoswipegalleries" }}
+    <script type="module">
+        import PhotoSwipeLightbox from '/adornion/js/photoswipe/photoswipe-lightbox.esm.min.js';
+
+        const lightboxes = {};
+        {{ range $elem_key, $elem_val := .Params.PhotoswipeGalleries }}
+            lightboxes[{{ $elem_key }}] = new PhotoSwipeLightbox({
+                gallery: '#{{ $elem_val }}',
+                children: 'a',
+                pswpModule: () => import('/adornion/js/photoswipe/photoswipe.esm.min.js')
+            });
+            lightboxes[{{ $elem_key }}].init();
+        {{ end }}
+    </script>
+{{ end }}
+

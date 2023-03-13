@@ -1,0 +1,33 @@
+<nav>
+    <div id="home">
+        <a href="{{ .Site.BaseURL }}">
+            {{ .Site.Title }}
+        </a>
+    </div>
+    
+    <h1 id="title">{{ .Title }}</h1>
+
+    <menu id="menu-bar">
+        {{- range .Site.Menus.main }}
+            {{ $firstLevelMainMenuItemCoversPageClass := "" }}
+            {{ if or ($.Page.IsMenuCurrent "main" .) ($.Page.HasMenuCurrent "main" .) }}
+                {{ $firstLevelMainMenuItemCoversPageClass = "first-level-menu-item-page-tree-active" }}
+            {{ end }}
+            <div class="first-level-menu-item">
+                {{ if eq (len .URL) 0 }}
+                    {{ errorf "PageRef '%s' incorrect for Menu Item '%s'" .PageRef .Identifier }}
+                {{ else }}
+                    <a href="{{ .URL | default "#" }}" class="{{ $firstLevelMainMenuItemCoversPageClass }}">
+                        {{ with .Pre}} {{ . }} {{ end }}
+                        {{- .Name -}}
+                        {{ with .Post}} {{ . }} {{ end }}
+                    </a>
+                    {{ $secondLevelContainerParameters := newScratch }}
+                    {{ $secondLevelContainerParameters.Set "page" $.Page }}
+                    {{ $secondLevelContainerParameters.Set "firstLevelMenuEntry" . }}
+                    {{ partial "header/wide/second-level-container" $secondLevelContainerParameters }}
+                {{ end }}
+            </div>
+        {{- end }}
+    </menu>
+</nav>

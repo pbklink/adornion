@@ -1,0 +1,53 @@
+{{/*
+    Possible resets or normalise to consider:
+        https://github.com/elad2412/the-new-css-reset
+        https://github.com/sindresorhus/modern-normalize
+        https://github.com/krshoss/gardevoir
+        https://github.com/necolas/normalize.css/
+        https://github.com/csstools/normalize.css/
+    Make sure you mount CSS folder in config.toml
+    Also make sure that any required node_modules files are included in GIT repository
+
+    DartSass installation tutorial:
+    https://www.brycewray.com/posts/2022/05/using-dart-sass-hugo-nitty-gritty/
+*/}}
+{{ $enableSourceMaps := .Site.Params.enableSourceMaps }}
+{{ $resetStyleOptions := (dict "targetPath" "resetStyle.css" "outputStyle" "compressed" "enableSourceMap" .Site.Params.enableSourceMaps) }}
+{{ $resetStyle := resources.Get "adornion/gardevoir/index.css" | resources.ToCSS $resetStyleOptions }}
+{{ $mainStyleOptions := (dict
+    "transpiler" "dartsass"
+    "targetPath" "mainStyle.css"
+    "outputStyle" "compressed"
+    "enableSourceMap" $enableSourceMaps 
+    "vars" site.Params.sassVars
+) }}
+{{ $mainStyle := resources.Get "adornion/scss/main.scss" | resources.ExecuteAsTemplate "main.scss" . | resources.ToCSS $mainStyleOptions }}
+{{ $customStyle := "" }}
+{{ with resources.Get "scss/custom.scss" }}
+    {{ $customStyleOptions := (dict
+        "transpiler" "dartsass"
+        "targetPath" "customStyle.css"
+        "outputStyle" "compressed"
+        "enableSourceMap" $enableSourceMaps 
+        "vars" site.Params.sassVars
+    ) }}
+    {{ $customStyle = . | resources.ExecuteAsTemplate "custom.scss" . | resources.ToCSS $customStyleOptions }}
+{{ end }}
+
+<title>{{ if .IsHome }}{{ .Site.Title }}{{ else }}{{ .Title }} | {{ .Site.Title }}{{ end }}</title>
+<meta charset="utf-8" />
+{{ .Site.Hugo.Generator }}
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+<link rel="stylesheet" href="{{ $resetStyle.RelPermalink }}" />
+<link rel="stylesheet" href="{{ $mainStyle.RelPermalink }}" />
+{{ with $customStyle}}
+    <link rel="stylesheet" href="{{ .RelPermalink }}" />
+{{ end }}
+<link rel="icon" href="{{ .Site.BaseURL }}{{ .Site.Params.favicon }}">
+
+{{ if isset .Params "photoswipegalleries" }}
+    {{ $photoswipeStyle := resources.Get "adornion/photoswipe-src/photoswipe.css"  | toCSS (dict "targetPath" "css/photoswipe.css" "enableSourceMap" false) }}
+    <link rel="stylesheet" href="{{ ($photoswipeStyle | minify | fingerprint).RelPermalink }}">
+{{ end }}
+
+{{- partial "head/custom.html" . -}}

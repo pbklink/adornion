@@ -1,0 +1,25 @@
+{
+  "name": "adornion",
+  "version": "0.0.1",
+  "description": "Adornion Hugo theme",
+  "main": "index.js",
+  "private": true,
+  "scripts": {
+    "build:hugo": "hugo --cleanDestinationDir",
+    "build": "npm run api && npm run build:hugo"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/adornion/adornion.git"
+  },
+  "author": "Paul Klink",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/adornion/adornion/issues"
+  },
+  "homepage": "https://github.com/adornion/adornion#readme",
+  "devDependencies": {
+    "gardevoir": "^1.0.0",
+    "photoswipe": "^5.2.0"
+  }
+}

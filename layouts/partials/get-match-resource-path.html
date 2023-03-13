@@ -1,0 +1,18 @@
+{{ $resourcePath := .Get "resourcePath" }}
+{{ $page := .Get "page" }}
+
+{{ $resource := "" }}
+{{ if not $resourcePath }}
+    {{ errorf "'%s': resource path not defined" $page.Title }}
+{{ else }}
+    {{ $initialChars := substr $resourcePath 0 2 }}
+    {{ if (eq $initialChars "//") }}
+        {{ $resourcePath = substr $resourcePath 2 }}
+        {{ .Set "resourcePath" $resourcePath }}
+        {{ $resource = partial "get-match-asset-resource-path.html" . }}    
+    {{ else }}
+        {{ $resource = partial "get-match-page-resource-path.html" . }}
+    {{ end }}
+{{ end }}
+
+{{ return $resource }}

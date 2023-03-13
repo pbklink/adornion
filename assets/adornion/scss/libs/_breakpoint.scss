@@ -1,0 +1,111 @@
+// based on breakpoint.scss by @ajlkn */
+
+@use 'sass:string';
+@use 'sass:map';
+@use 'sass:meta';
+@use 'sass:list';
+@use 'sass:math';
+
+$mobilep: 'mobilep';
+$mobile: 'mobile';
+$narrower: 'narrower';
+$narrow: 'narrow';
+$normal: 'normal';
+$wide: 'wide';
+$infinite: 'infinite';
+
+$_sorted-definitions: ();
+
+$_name-key: 'name';
+$_max-key: 'max';
+$_abbreviation-key: 'abbreviation';
+
+@mixin initialize($breakpoint-definitions...) {
+	$sorted-breakpoint-definitions: _quick-sort($breakpoint-definitions) !global;
+}
+
+@mixin create($name) {
+	$media: null;
+	$abbreviation: null;
+	$min: null;
+
+	@each $definition in $sorted-breakpoint-definitions {
+		$definition-name: map.get($definition, $_name-key);
+		$max: map.get($definition, $_max-key);
+
+		@if ($definition-name == $name) {
+			@if ($media != null) {
+				@error 'Duplicate name in breakpoint definitions: #{$definition-name}';
+			} @else {
+				$abbreviation: map.get($definition, $_abbreviation-key);
+				@if ($min == null) {
+					$media: 'screen and (max-width: ' + $max + 'px)';
+				} @else {
+					@if ($max == null) {
+						$media: 'screen and (min-width: ' + $min + 'px)';
+					} @else {
+						$media: 'screen and (min-width: ' + $min + 'px) and (max-width: ' + $max + 'px)';
+					}
+				}
+			}
+		}
+
+		$min: $max + 1;
+	}
+
+	@if ($media == null) {
+		@error 'No breakpoint definition has name: #{$name}';
+	} @else {
+		@media #{$media} {
+			.media-size-display::after {
+				content: "#{$abbreviation}";
+			}	
+			@content;
+		}
+	}
+}
+
+/// Wraps @content in a @media block targeting a specific orientation.
+/// @param {string} $orientation Orientation.
+@mixin orientation($orientation) {
+	@media screen and (orientation: #{$orientation}) {
+		@content;
+	}
+}
+
+/// Quick sort
+/// @author Sam Richards
+/// @param {List} $list - list to sort
+@function _quick-sort($list) {
+	$less: ();
+	$equal: ();
+	$large: ();
+
+	@if length($list) > 1 {
+		$seed-item: nth($list, math.ceil(math.div(length($list), 2)));
+		$seed-max: map.get($seed-item, $_max-key);
+
+		@each $item in $list {
+			$max: map.get($item, $_max-key);
+			@if ($max == $seed-max) {
+				$equal: append($equal, $item);
+			} @else {
+				@if (($max == null)) {
+					$large: append($large, $item);
+				} @else {
+					@if ($max < $seed-max) {
+						$less: append($less, $item);
+					} @else {
+						@if (($max > $seed-max)) {
+							$large: append($large, $item);
+						}
+					}
+				}
+			}
+		}
+
+		@return list.join(list.join(_quick-sort($less), $equal), _quick-sort($large));
+	}
+
+	@return $list;
+}

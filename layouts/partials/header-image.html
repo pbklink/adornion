@@ -1,0 +1,29 @@
+<div class="header-image"
+    style="
+        background-image:
+            linear-gradient(
+                {{ .gradientDirection | default "to right" }},
+                {{ .gradientStartColor | default "#00000000" }} {{ .gradientStartPosition | default "0" }},
+                {{ with .gradientMidPosition }} {{ . }}, {{ end }}
+                {{ .gradientFinishColor | default "#00000000" }} {{ .gradientFinishPosition | default "100%" }}
+            ),
+            url('{{ .image.RelPermalink | relURL }}');
+        background-position: {{ with .backgroundPosition }} {{ . }}; {{ else }} left center; {{ end }}
+        {{ with .backgroundColor }} background-color: {{ . }}; {{ end }}
+        {{ with .backgroundSize }} background-size: {{ . }}; {{ end }}
+        background-repeat: {{ with .backgroundRepeat }} {{ . }}; {{ else }} no-repeat; {{ end }}
+        {{ with .height }} height: {{ . }}; {{ end }}
+    ">
+
+    {{ $taglineFontColor := .taglineFontColor }}
+    {{ with .tagline }} 
+        <div class="header-tagline-margin-top"></div>
+        <div class="container">
+            <div class="single-column-band">
+                <span class="header-tagline" style="{{ with $taglineFontColor }} color: {{ . }}; {{ end }}" >
+                    {{ . }}
+                </span>
+            </div>
+        </div>
+    {{ end }}
+</div>

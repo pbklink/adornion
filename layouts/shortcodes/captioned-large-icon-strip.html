@@ -1,0 +1,37 @@
+{{ $stripName := .Get "stripName" }}
+{{ $strip := index $.Page.Params $stripName }}
+{{ with $strip }}
+    <section class="captioned-large-icon-strip container">
+        <div class="grid">
+            {{- $item_cols := (div 12 (.items_per_row | default 3)) }}
+            {{- range .items }}
+                <div class="highlight">
+                    <div class="icon-title-container">
+                        {{ partial
+                            "icon.html" 
+                            (dict
+                                "containerClass" "icon-container"
+                                "title" .title
+                                "iconUrl" .icon
+                                "linkUrl" .url
+                            )
+                        }}
+
+                        <div class="title-container">
+                            {{ if .url }}
+                                <a href="{{ .url }}">
+                            {{ end }}
+                                <h3 class="title">{{ .title }}</h3>
+                            {{ if .url }}
+                                </a>
+                            {{ end }}
+                        </div>
+                    </div>
+                    <div class="content">
+                        <p>{{ .content | markdownify }}</p>
+                    </div>
+                </div>
+            {{- end }}
+        </div>
+    </section>
+{{ end }}

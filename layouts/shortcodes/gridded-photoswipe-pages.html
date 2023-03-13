@@ -1,0 +1,37 @@
+{{ $galleryParamKey := .Get "galleryParamKey" }}
+{{ $gallery := index $.Page.Params.PhotoswipeGalleries $galleryParamKey }}
+
+{{ $parentPagePath := .Get "parentPagePath" }}
+{{ $parentPage := $.Page }}
+{{ with $parentPagePath }}
+    {{ $parentPage = $.Page.GetPage $parentPagePath }}
+{{ end }}
+
+{{ $pages := $parentPage.Pages }}
+
+{{ if gt (len $pages) 0 }}
+    <section class="container">
+        <div class="single-column-band gridded-photoswipe-pages pswp-gallery pswp-gallery--single-column" id="{{ $gallery }}">
+            {{ range $pages.ByWeight }}
+                {{ $heading := .Params.heading }}
+
+                {{ $getMatchResourcePath := newScratch }}
+                {{ $getMatchResourcePath.Set "page" . }}
+                {{ $getMatchResourcePath.Set "resourcePath" .Params.resourcePath }}
+                {{ $imageResource := partial "get-match-resource-path.html" $getMatchResourcePath }}
+
+                <a href="{{$imageResource.RelPermalink}}" data-pswp-width="{{$imageResource.Width}}" data-pswp-height="{{$imageResource.Height}}"
+                    target="_blank">
+                    <img src="{{$imageResource.RelPermalink}}" alt="" />
+                </a>
+
+                <div>
+                    {{ with $heading }}
+                        <h4>{{ . }}</h4>
+                    {{ end }}
+                    {{ .Content }}
+                </div>
+            {{end}}
+        </div>
+    </section>
+{{end}}

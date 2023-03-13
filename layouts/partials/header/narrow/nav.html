@@ -1,0 +1,39 @@
+<nav>
+    <menu class="first-level-menu">
+        {{- range .Site.Menus.main }}
+            {{ $firstLevelMainMenuItemCoversPageClass := "" }}
+            {{ if or ($.Page.IsMenuCurrent "main" .) ($.Page.HasMenuCurrent "main" .) }}
+                {{ $firstLevelMainMenuItemCoversPageClass = "first-level-menu-item-page-tree-active" }}
+            {{ end }}
+            <div class="first-level-menu-item {{ $firstLevelMainMenuItemCoversPageClass }}">
+                {{ if eq (len .URL) 0 }}
+                    {{ errorf "PageRef '%s' incorrect for Menu Item '%s'" .PageRef .Identifier }}
+                {{ else }}
+                    <a href="{{ .URL | default "#" }}">
+                        {{ with .Pre}} {{ . }} {{ end }}
+                        {{- .Name -}}
+                        {{ with .Post}} {{ . }} {{ end }}
+                    </a>
+                {{ end }}
+            </div>
+            {{- if .HasChildren -}}
+                <menu class="second-level-menu">
+                    {{- range .Children }}
+                        {{ $isSub := partial "is-sub-menu-item-identifier" .Identifier }}
+                        {{ if not $isSub }}
+                            {{ $extraClasses := ""}}
+                            {{ with .Pre}}{{ $extraClasses = . }}{{ end }}
+                            <div class="menu-item {{ $extraClasses }}">
+                                {{ if eq (len .URL) 0 }}
+                                    {{ errorf "PageRef '%s' incorrect for Menu Item '%s'" .PageRef .Identifier }}
+                                {{ else }}
+                                    <a href="{{ .URL | default "#" }}">{{ .Name }}</a>
+                                {{ end }}
+                            </div>
+                        {{- end }}
+                    {{- end }}
+                </menu>
+            {{- end -}}
+        {{- end }}
+    </menu>
+</nav>

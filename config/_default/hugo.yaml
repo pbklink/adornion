@@ -1,0 +1,44 @@
+
+params:
+  dateformat: 02 Jan 2006
+  enableSourceMaps: true
+
+  sassVars: # https://discourse.gohugo.io/t/initialize-sass-variables-from-hugo-templates/42053
+    # z-index-base: 10000 # all z-index values set by adornion will be greater than this
+
+    # color-scheme: default # specify a color scheme
+
+    # override individual colors in selected color scheme
+    # wide-header-menu-second-level-background: <color>
+    # narrow-header-hamburger-layer-color: <color>
+    # anchor-foreground-color: <color>
+    # anchor-hover-foreground-color: <color>
+    # wide-header-home-anchor-foreground-color: <color>
+    # wide-header-title-foreground: <color>
+    # footer-anchor-hover-foreground-color: <color>
+    # footer-anchor-bottom-border-color: <color>
+    # pagination-default-disabled-active-anchor-foreground-color: <color>
+
+module:
+  hugoVersion:
+    extended: true
+    min: "0.110.0"
+
+  mounts:
+  - source: layouts
+    target: layouts
+
+  - source: node_modules/photoswipe/dist
+    target: static/adornion/js/photoswipe
+
+  - source: assets/adornion/scss
+    target: assets/adornion/scss
+
+  - source: node_modules/photoswipe/src
+    target: assets/adornion/photoswipe-src
+
+  - source: node_modules/gardevoir/dist
+    target: assets/adornion/gardevoir
+
+  - source: data/adornion
+    target: data/adornion

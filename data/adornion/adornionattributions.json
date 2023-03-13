@@ -1,0 +1,17 @@
+{
+    "attributions": [
+        {
+            "type": "Library",
+            "item": "Hamburger",
+            "itemUrl": "https://jonsuh.com/hamburgers/",
+            "creator": "Jonathan Suh",
+            "creatorUrl": "https://jonsuh.com/about/",
+            "location": "Narrow Header",
+            "source": "Jonathan Suh",
+            "sourceUrl": "https://jonsuh.com/hamburgers/",
+            "adjustments": "",
+            "licence": "MIT",
+            "licenceUrl": "https://github.com/jonsuh/hamburgers"
+        }
+    ]
+}

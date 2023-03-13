@@ -1,0 +1,76 @@
+@use 'hugo';
+@use 'libs/color/color';
+@use 'first-level-menu-item-hover';
+
+@mixin nav {
+    nav {
+        display: flex;
+        cursor: default;
+        background-color: color.get(color.$wide-header-nav-background);
+        padding: 0;
+        min-height: 2.5em;
+        align-items: center;
+
+        #home {
+            margin-left: 0.5em;
+            display: flex;
+            flex: 0 0 auto;
+            justify-content: left;
+            align-items: center;
+            position: absolute;
+
+            a {
+                font-size: 120%;
+                font-weight: 600;
+                color: color.get(color.$wide-header-home-anchor-foreground);
+            }
+        }
+    
+        #title {
+            flex: 1 1 auto;
+            display: inline;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+            color: color.get(color.$wide-header-title-foreground);
+        }
+    
+        #menu-bar {
+            flex: 0 0 auto;
+            justify-content: right;
+            gap: 1em;
+            display: flex;
+            margin-right: 1em;
+            position: absolute;
+            right: 0;
+
+            > .first-level-menu-item {
+                position: relative;
+
+                > a {
+                    color: color.get(color.$wide-header-menu-first-level-anchor-foreground);
+    
+                    &:hover {
+                        color: color.get(color.$wide-header-menu-first-level-anchor-hover-foreground);
+                    }
+
+                    &.first-level-menu-item-page-tree-active {
+                        text-decoration: overline;
+                        text-decoration-thickness: 1px;
+                        text-decoration-color: color.get(color.$wide-header-menu-first-level-menu-item-page-tree-active);
+                    }
+                }
+    
+                &:hover {
+                    background-color: color.get(color.$wide-header-menu-second-level-background);
+
+                    @include first-level-menu-item-hover.second-level;
+                }
+
+                > .second-level-container {
+                    display: none;
+                }
+            }
+        }
+    }
+}

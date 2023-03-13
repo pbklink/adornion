@@ -1,0 +1,48 @@
+@use '../name';
+
+$_header-nav-footer-banner-background: #333;
+$_menu-item-anchor-foreground: #c0c0c0;
+$_menu-item-anchor-hover-foreground: white;
+$_first-level-menu-item-page-tree-active: dimgray;
+
+$color-scheme: (
+    '#{name.$anchor-foreground}': #206bba,
+    '#{name.$anchor-hover-foreground}': #206bba,
+    '#{name.$wide-header-nav-background}': $_header-nav-footer-banner-background,
+    '#{name.$wide-header-home-anchor-foreground}': #37c0fb,
+    '#{name.$wide-header-title-foreground}': #b9efab,
+    '#{name.$wide-header-tagline-foreground}': white,
+    '#{name.$wide-header-menu-first-level-anchor-foreground}': $_menu-item-anchor-foreground,
+    '#{name.$wide-header-menu-first-level-anchor-hover-foreground}': $_menu-item-anchor-hover-foreground,
+    '#{name.$wide-header-menu-first-level-menu-item-page-tree-active}': $_first-level-menu-item-page-tree-active,
+    '#{name.$wide-header-menu-second-level-background}': #222,
+    '#{name.$wide-header-menu-second-level-container-right-padding-left-border}': rgb(73, 123, 167),
+    '#{name.$wide-header-menu-second-level-headlined-dated-menu-background}': #1a2a16,
+    '#{name.$wide-header-menu-second-level-anchor-foreground}': $_menu-item-anchor-foreground,
+    '#{name.$wide-header-menu-second-level-anchor-hover-foreground}': $_menu-item-anchor-hover-foreground,
+    '#{name.$narrow-header-background}': $_header-nav-footer-banner-background,
+    '#{name.$narrow-header-title-foreground}': white,
+    '#{name.$narrow-header-popup-background}': #2c2929,
+    '#{name.$narrow-header-nav-second-level-background}': $_header-nav-footer-banner-background,
+    '#{name.$narrow-header-menu-first-level-anchor-foreground}': $_menu-item-anchor-foreground,
+    '#{name.$narrow-header-menu-first-level-anchor-hover-foreground}': $_menu-item-anchor-hover-foreground,
+    '#{name.$narrow-header-menu-first-level-menu-item-page-tree-active}': $_first-level-menu-item-page-tree-active,
+    '#{name.$narrow-header-menu-second-level-anchor-foreground}': #c0c0c0,
+    '#{name.$narrow-header-menu-second-level-anchor-hover-foreground}': $_menu-item-anchor-hover-foreground,
+    '#{name.$narrow-header-hamburger-layer}': #eee,
+    '#{name.$footer-background}': $_header-nav-footer-banner-background,
+    '#{name.$footer-foreground}': whitesmoke,
+    '#{name.$footer-anchor-hover-foreground}': #37c0fb,
+    '#{name.$footer-anchor-bottom-border}': black,
+    '#{name.$page-band-a-background}': rgb(235, 253, 244),
+    '#{name.$page-band-b-background}': rgb(255, 233, 233),
+    '#{name.$page-band-c-background}': rgb(105, 105, 105),
+    '#{name.$odd-row-background}': rgb(244, 244, 244),
+    '#{name.$even-row-background}': rgba(236, 236, 236),
+    '#{name.$pagination-default-disabled-active-anchor-foreground}': black,
+
+    // adornments
+    '#{name.$banner-background}': $_header-nav-footer-banner-background,
+    '#{name.$banner-foreground}': whitesmoke,
+    '#{name.$light-bordered-table-odd-row-background}': #f8f8f8,
+)

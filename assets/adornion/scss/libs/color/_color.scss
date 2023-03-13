@@ -1,0 +1,52 @@
+@use 'sass:map';
+@use 'sass:meta';
+
+@use 'hugo';
+
+@use 'name';
+@forward 'name';
+
+@use 'scheme/default';
+
+$_active-scheme: ();
+
+@mixin initialize() {
+    $default-color-scheme: default.$color-scheme;
+
+    // Load color scheme.  Use default color scheme if not specified in Hugo
+    $scheme: $default-color-scheme;
+    $hugo-color-scheme: map.get(hugo.$vars, 'color-scheme');
+    @if ($hugo-color-scheme) {
+        $lower-hugo-color-scheme: string.to-lower-case($hugo-color-scheme);
+        @if ($hugo-color-scheme == 'dark') {
+            $scheme: $dark-color-scheme;
+        }
+    }
+    $_active-scheme: $scheme !global;
+
+    // Overwrite with defined specific hugo colors
+    @each $color-name in name.$all {
+        $hugo-color-name: '#{$color-name}-color';
+        $hugo-color: map.get(hugo.$vars, $hugo-color-name);
+        @if ($hugo-color != null) {
+            $_active-scheme: map.set($_active-scheme, $color-name, $hugo-color) !global;
+        }
+    }
+
+    // Check to see that all colors are defined.  If a color is not defined, use default color
+    @each $color-name in name.$all {
+        $active-color: map.get($_active-scheme, $color-name);
+        @if ($active-color == null) {
+            $active-color: map.get($default-color-scheme, $color-name);
+            @if ($active-color == null) {
+                @error 'Undefined default color: #{$color-name}';
+            } @else {
+                $_active-scheme: map.set($_active-scheme, $color-name, $active-color) !global;
+            }
+        }
+    }
+}
+
+@function get($key) {
+    @return map.get($_active-scheme, $key);
+}

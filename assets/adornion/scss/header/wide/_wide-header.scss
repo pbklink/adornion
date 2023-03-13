@@ -1,0 +1,82 @@
+@use 'hugo';
+@use 'libs/color/color';
+@use 'nav';
+
+$_z-index-base: hugo.get-z-index-base();
+
+@mixin _none {
+    #wide-header {
+        display: none;
+    }
+}
+
+@mixin _base {
+    #wide-header {
+        @include nav.nav;
+
+        .header-image {
+            height: 12em;
+
+            .header-tagline-margin-top {
+                height: 16%;
+            }
+
+            .container {
+                .single-column-band {
+                    margin-top: 0;
+
+                    .header-tagline {
+                        font-size: 160%;
+                        display: block;
+                        color: color.get(color.$wide-header-tagline-foreground);
+                        z-index: $_z-index-base + 1;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@mixin infinite {
+    @include _base;
+}
+
+@mixin wide {
+    @include infinite;
+}
+
+@mixin normal {
+    @include _base;
+
+    #wide-header {
+        font-size: 90%;
+        nav {
+            #home {
+                position: static;
+            }
+            #menu-bar {
+                position: static;
+            }
+        }
+    }
+}
+
+@mixin narrow {
+    @include normal;
+
+    #wide-header {
+        font-size: 75%;
+    }
+}
+
+@mixin narrower {
+    @include _none;
+}
+
+@mixin mobile {
+    @include _none;
+}
+
+@mixin mobilep {
+    @include _none;
+}

@@ -1,0 +1,10 @@
+{{ $color := . }}
+{{ $pageBandColor := "" }}
+{{ if $color }}
+    {{ $lowerColor := lower $color }}
+    {{ if  (eq $lowerColor "a") | or (eq $lowerColor "b") | or (eq $lowerColor "c") }}
+        {{ $pageBandColor = $lowerColor }}
+    {{ end }}
+{{ end }}
+
+{{ return $pageBandColor }}

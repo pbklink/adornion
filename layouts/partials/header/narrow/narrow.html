@@ -1,0 +1,54 @@
+<div id="narrow-header">
+        
+    <button 
+        class="hamburger hamburger--spring"
+        type="button"
+        aria-label="Menu"
+        aria-controls="navigation"
+        aria-expanded="true/false"
+        onclick="togglePopup(event)"
+    >
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+
+        <div class="popup">
+            {{ partial "header/narrow/nav" .}}
+        </div>
+
+    </button>
+
+    <div class="title">
+        {{ $siteTitle := .Site.Title }}
+        {{ $upperSiteTitle := $siteTitle | upper }}
+        {{ $pageTitle := .Page.Title }}
+        {{ $upperPageTitle := $pageTitle | upper }}
+        {{ $isHome := or (eq $pageTitle "") (eq ($upperPageTitle) "HOME") (eq $upperPageTitle $upperSiteTitle) }}
+        {{ if $isHome }}
+            <span>
+                {{ $siteTitle }}
+            </span>
+        {{ else }}
+            <span>
+                <a href="{{ .Site.BaseURL }}">
+                    {{ $siteTitle }}
+                </a>
+            </span>
+
+            <span id="pageTitle"> | {{ $pageTitle }}</span>
+        {{ end }}
+    </div>
+</div>
+
+<script>
+    function togglePopup(ev) {
+        const buttonElement = ev.currentTarget;
+        const popupElement = buttonElement.querySelector('#narrow-header .popup');
+        let active = ev.currentTarget.classList.toggle('is-active')
+        if (active) {
+            popupElement.style.display = 'flex';
+        } else {
+            popupElement.style.display = 'none';
+        }
+    }
+</script>

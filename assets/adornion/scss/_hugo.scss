@@ -1,0 +1,20 @@
+@use 'sass:map';
+@use 'sass:meta';
+
+@use 'hugo:vars' as hugo-vars-module;
+
+$vars: ();
+
+$_default-z-index-base: 10000;
+
+@mixin initialize() {
+    $vars: meta.module-variables('hugo-vars-module') !global;
+}
+
+@function get-z-index-base() {
+    $result: map.get($vars, 'z-index-base');
+    @if ($result == null) {
+        $result: $_default-z-index-base;
+    }
+    @return $result;
+}

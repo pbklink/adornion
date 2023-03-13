@@ -1,0 +1,27 @@
+<div
+  id="hero"
+  {{ $classPrefix := "hero" }}
+  {{ with .classPrefix }} {{ $classPrefix = . }} {{ end }}
+  class="{{ $classPrefix }}-image {{ $classPrefix }}-image-setheight"
+  style="
+    background-image:
+      linear-gradient(
+        {{ .gradientDirection | default "to right" }},
+        {{ .gradientStartColor | default "#00000000" }} {{ .gradientStartPosition | default "0" }},
+        {{ with .gradientMidPosition }} {{ . }}, {{ end }}
+        {{ .gradientFinishColor | default "#00000000" }} {{ .gradientFinishPosition | default "100%" }}
+      ),
+      url('{{ .backgroundUrl | relURL }}');
+    background-position: {{ with .backgroundPosition }} {{ . }}; {{ else }} left center; {{ end }}
+    {{ with .backgroundColor }} background-color: {{ . }}; {{ end }}
+    {{ with .backgroundSize }} background-size: {{ . }}; {{ end }}
+  ">
+
+  <div class="container">
+    <div class="{{ $classPrefix }}-text">
+      <span class="{{ $classPrefix }}-section">{{ .section }}</span>
+      <h1>{{ .heading }}</h1>
+      <p>{{ .subheading }}</p>
+    </div>
+  </div>
+</div>

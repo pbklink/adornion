@@ -1,0 +1,10 @@
+<section class="imprint-site-grid-container">
+    {{ with .Site.Copyright }}
+        <span>Copyright:</span>
+        <span>{{ . }}</span>
+    {{ end }}
+    <span>Generated Date:</span>
+    <span>{{ now.Format "2006-01-02 03:04 MST" }}</span>
+    <span>Generator:</span>
+    <span>{{ "Hugo" }} ({{ .Site.Hugo.Version }})</span>
+</section>

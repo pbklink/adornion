@@ -1,0 +1,32 @@
+<div id="wide-header" >
+    {{ partial "header/wide/nav" .}}
+
+    {{ $headerImageResourcePath := .Params.headerImage.resourcePath }}
+    {{ if $headerImageResourcePath }}
+        {{ $getMatchResourceUrlParameters := newScratch }}
+        {{ $getMatchResourceUrlParameters.Set "page" . }}
+        {{ $getMatchResourceUrlParameters.Set "resourcePath" .Params.headerImage.resourcePath }}
+        {{ $headerImage := partial "get-match-resource-path.html" $getMatchResourceUrlParameters }}
+
+        {{ if $headerImage }}
+            {{ partial "header-image.html"
+                (dict 
+                    "image" $headerImage
+                    "height" .Params.headerImage.height
+                    "backgroundPosition" .Params.headerImage.backgroundPosition
+                    "backgroundColor" .Params.headerImage.backgroundColor
+                    "backgroundSize" .Params.headerImage.backgroundSize
+                    "backgroundRepeat" .Params.headerImage.backgroundRepeat
+                    "gradientStartColor" .Params.headerImage.gradientStartColor
+                    "gradientStartPosition" .Params.headerImage.gradientStartPosition
+                    "gradientMidPosition" .Params.headerImage.gradientMidPosition
+                    "gradientFinishColor" .Params.headerImage.gradientFinishColor
+                    "gradientFinishPosition" .Params.headerImage.gradientFinishPosition
+                    "headerImageHeadingVisible" .Params.headerImage.headingVisible
+                    "tagline" .Params.tagline
+                    "taglineFontColor" .Params.headerImage.taglineFontColor
+                )
+            }}
+        {{ end }}
+    {{ end }}
+</div>

@@ -1,0 +1,51 @@
+{{ $page := .Get "page" }}
+{{ $firstLevelMenuEntry := .Get "firstLevelMenuEntry" }}
+
+<div class="second-level-container">
+    <div class="menus">
+        {{ $maxHeadlinedDatedCount := partial "get-headlined-dated-menu-item-max-count" $firstLevelMenuEntry.Identifier }}
+        {{ $headlinedDatedContainerPageUrl := "" }}
+        {{ if ge $maxHeadlinedDatedCount 0 }}
+            {{ $headlinedDatedContainerPageUrl = $firstLevelMenuEntry.URL }}
+        {{ end }}
+
+        {{- if $firstLevelMenuEntry.HasChildren -}}
+            <div class="items-container">
+                <div class="left-padding"></div>
+                <menu class="items-menu">
+                    {{- range $firstLevelMenuEntry.Children }}
+                        {{ $identifier := .Identifier }}
+                        {{ $url := .URL }}
+                        {{ if eq (len $url) 0 }}
+                            {{ errorf "PageRef '%s' incorrect for Menu Item '%s'" .PageRef $identifier }}
+                        {{ else }}
+                            {{ $isSub := partial "is-sub-menu-item-identifier" $identifier }}
+                            {{ $subItemClass := "" }}
+                            {{ if $isSub }}
+                                {{ $subItemClass = "menu-sub-item" }}
+                            {{ end }}
+                            {{ with .Pre}} {{ . }} {{ end }}
+                            <span class="menu-item {{ $subItemClass }}">
+                                <a href="{{ $url | default "#" }}">{{ .Name }}</a>
+                            </span>
+                            {{ with .Post}} {{ . }} {{ end }}
+
+                            {{ $maxHeadlinedDatedCount = partial "get-headlined-dated-menu-item-max-count" $identifier }}
+                            {{ if ge $maxHeadlinedDatedCount 0 }}
+                                {{ $headlinedDatedContainerPageUrl = $url }}
+                            {{ end }}
+                        {{ end }}
+                    {{ end }}
+                </menu>
+            </div>
+        {{ end }}
+
+        {{ if ge $maxHeadlinedDatedCount 0 }}
+            {{ $headlinedDatedMenuParameters := newScratch }}
+            {{ $headlinedDatedMenuParameters.Set "maxCount" $maxHeadlinedDatedCount }}
+            {{ $headlinedDatedMenuParameters.Set "headlinedDatedContainerPageUrl" $headlinedDatedContainerPageUrl }}
+            {{ partial "header/wide/headlined-dated-menu" $headlinedDatedMenuParameters }}
+        {{ end }}
+    </div>
+    <div class="right-padding"></div>
+</div>

@@ -1,0 +1,21 @@
+{{ $backgroundPosition := .backgroundPosition | default "left center" }}
+{{ $backgroundSize := .backgroundSize | default "cover" }}
+
+<div
+  id="hero"
+  class="section-image section-image-setheight"
+  style="
+    background-image: linear-gradient(to right, rgba(0, 0, 0, 1), rgba(255, 255, 255, 0)), url('{{ .background | relURL }}');
+    background-position: {{ $backgroundPosition }};
+    background-size: {{ $backgroundSize }};
+  "
+>
+  <div class="container">
+    <div class="section-text">
+      <span class="section-section">{{ .section }}</span>
+      <h1>{{ .heading }}</h1>
+      <p>{{ .subheading }}</p>
+    </div>
+  </div>
+</div>
+  

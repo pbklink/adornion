@@ -1,0 +1,13 @@
+name = "Adornion"
+license = "MIT"
+licenselink = "https://github.com/adornion/adornion/license"
+description = "A business theme using adornments"
+
+homepage = "https://adornion.github.io/doc/"
+demosite = "https://adornion.github.io/doc/"
+
+tags = ["business","responsive","adornments"]
+
+[author]
+  name = "Paul Klink"
+  homepage = "https://paul.klink.au/"

@@ -1,0 +1,16 @@
+{{ define "main" }}
+    {{ .Content }}
+
+    <section class="container">
+        <section class="single-column-band">
+            {{ $allPages := .Page.RegularPagesRecursive }}
+            {{ $paginator := .Paginate $allPages.ByDate.Reverse 10 }}
+            {{ template "_internal/pagination.html" . }}
+            <section class="blog-entry-summaries">
+                {{ range $paginator.Pages }}
+                    {{ .Render "summary" }}
+                {{ end }}
+            </section>
+        </section>
+    </section>
+{{ end }}

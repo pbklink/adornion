@@ -1,0 +1,25 @@
+{{ range .attributions }}
+    {{ if .itemUrl }}
+        <a href="{{ .itemUrl }}" class="imprint-attribution">{{ .item }}</a>
+    {{ else }}
+        <span class="imprint-attribution">{{ .item }}</span>
+    {{ end }}
+    <span class="imprint-attribution">{{ .type }}</span>
+    <span class="imprint-attribution">{{ .location }}</span>
+    {{ if .creatorUrl }}
+        <a href="{{ .creatorUrl }}" class="imprint-attribution">{{ .creator }}</a>
+    {{ else }}
+        <span class="imprint-attribution">{{ .creator }}</span>
+    {{ end }}
+    {{ if .sourceUrl }}
+        <a href="{{ .sourceUrl }}" class="imprint-attribution">{{ .source }}</a>
+    {{ else }}
+        <span class="imprint-attribution">{{ .source }}</span>
+    {{ end }}
+        <span class="imprint-attribution">{{ .adjustments }}</span>
+    {{ if .licenceUrl }}
+        <a href="{{ .licenceUrl }}" class="imprint-attribution">{{ .licence }}</a>
+    {{ else }}
+        <span class="imprint-attribution">{{ .licence }}</span>
+    {{ end }}
+{{ end }}

@@ -1,0 +1,11 @@
+{{ $backgroundColor := . }}
+{{ $pageBandBackgroundClass := "" }}
+
+{{ if $backgroundColor }}
+    {{ $pageBandColor := partial "get-page-band-color" $backgroundColor }}
+    {{ if ne $pageBandColor "" }}
+        {{ $pageBandBackgroundClass = printf "page-band-background-%s" $pageBandColor }}
+    {{ end }}
+{{ end }}
+
+{{ return $pageBandBackgroundClass }}

@@ -1,0 +1,96 @@
+@use 'hugo';
+@use 'libs/color/color';
+
+$_z-index-base: hugo.get-z-index-base();
+
+@mixin second-level {
+    $_right-padding-width: 0.5em;
+    > .second-level-container {
+        background-color: transparent;
+
+        display: flex;
+        position: absolute;
+        right: -$_right-padding-width;
+
+        > .menus {
+            display: flex;
+            flex-direction: column;
+
+            .menu-item {
+                display: flex;
+                align-items: center;
+                width: 100%;
+                white-space: nowrap;
+
+                > a {
+                    display: inline-block;
+                    width: 100%;
+                    color: color.get(wide-header-menu-second-level-anchor-foreground);
+
+                    &:hover {
+                        color: color.get(wide-header-menu-second-level-anchor-hover-foreground);
+                    }
+                }
+
+                &:first-child {
+                    margin-top: 0;
+                }
+            }
+
+            .menu-sub-item {
+                display: flex;
+                align-items: center;
+                font-size: 90%;
+                font-style: italic;
+                padding-left: .5em;
+
+                > a {
+                    display: inline-block;
+                    width: 100%;
+                    color: color.get(wide-header-menu-second-level-anchor-foreground);
+
+                    &:hover {
+                        color: color.get(wide-header-menu-second-level-anchor-hover-foreground);
+                    }
+                }
+            }
+
+            > .items-container {
+                display: flex;
+
+                > .left-padding {
+                    flex: 1 1 auto;
+                }
+                > .items-menu {
+                    flex: 0 0 auto;
+
+                    background-color: color.get(color.$wide-header-menu-second-level-background);
+                    display: flex;
+                    flex-direction: column;
+                    align-items: baseline;
+                    right: -.5em;
+                    z-index: $_z-index-base + 2; // make sure we are above tagline
+                    background-color: color.get(color.$wide-header-menu-second-level-background);
+                    padding: .3em .5em;
+                    font-size: smaller;
+                }
+            }
+
+            .headlined-dated-menu {
+                display: grid;
+                grid-template-columns: max-content max-content;
+                row-gap: .3em;
+                column-gap: .3em;
+                background-color: color.get(color.$wide-header-menu-second-level-headlined-dated-menu-background);
+                font-size: 80%;
+                padding: 0.3em 0.5em
+            }
+        }
+
+        > .right-padding {
+            width: $_right-padding-width;
+            background-color: color.get(color.$wide-header-menu-second-level-background);
+            border-left: color.get(color.$wide-header-menu-second-level-container-right-padding-left-border) 1px solid;
+        }
+    }
+}

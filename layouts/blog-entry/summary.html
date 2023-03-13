@@ -1,0 +1,16 @@
+<div class="blog-entry-summary">
+    {{ if .Params.image }}
+        <img alt="{{ .Title }}" src="{{ .Params.image }}" />
+    {{ end}}
+    <div class="blog-entry-summary-headline-date">
+        <div class="blog-entry-summary-headline">
+            <a href="{{ .Permalink }}">{{ .Params.headline }}</a>
+        </div>
+        <div class="blog-entry-summary-date">
+            {{ .Date.Format (.Site.Params.dateformat) }}
+        </div>
+    </div>
+    <div class="blog-entry-summary-body ">
+        {{ .Summary }}
+    </div>
+</div>
