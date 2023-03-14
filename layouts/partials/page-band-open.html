@@ -1,6 +1,6 @@
 {{ $backgroundColor := . }}
 {{ if not $backgroundColor }}
-    <section>
+    <section class="page-band">
 {{ else }}
     {{ $pageBandBackgroundClass := partial "get-page-band-background-class" $backgroundColor }}
     {{ if eq $pageBandBackgroundClass "" }}

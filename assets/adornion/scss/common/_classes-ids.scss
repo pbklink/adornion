@@ -30,7 +30,8 @@
     }
     
     .container {
-        margin: 0 auto;
+        margin-left: auto;
+        margin-right: auto;
         max-width: 100%;
     }
     
@@ -45,10 +46,6 @@
 
     .viewport-filler {
         flex: 1 1 auto;
-    }
-
-    .single-column-band {
-        margin: 0.8em 13em;
     }
 
     .pagination-default {
@@ -67,6 +64,13 @@
 
     .container {
         width: 1400px;
+        padding-top: 0.8em;
+        padding-bottom: 0.8em;
+    }
+
+    .single-column-band {
+        padding-left: 13em;
+        padding-right: 13em;
     }
 }
 
@@ -75,10 +79,13 @@
 
     .container {
         width: 1200px;
+        padding-top: 0.65em;
+        padding-bottom: 0.65em;
     }
 
     .single-column-band {
-        margin: 0.65em 10em;
+        padding-left: 10em;
+        padding-right: 10em;
     }
 }
 
@@ -87,10 +94,13 @@
 
     .container {
         width: 960px;
+        padding-top: 0.5em;
+        padding-bottom: 0.5em;
     }
 
     .single-column-band {
-        margin: 0.5em 7em;
+        padding-left: 7em;
+        padding-right: 7em;
     }
 }
 
@@ -99,10 +109,13 @@
 
     .container {
         width: 95%;
+        padding-top: 0.25em;
+        padding-bottom: 0.25em;
     }
 
     .single-column-band {
-        margin: 0.25em 3em;
+        padding-left: 3em;
+        padding-right: 3em;
     }
 }
 
@@ -111,10 +124,13 @@
 
     .container {
         width: 100%;
+        padding-top: 0.1em;
+        padding-bottom: 0.1em;
     }
 
     .single-column-band {
-        margin: 0.1em 1em;
+        padding-left: 1em;
+        padding-right: 1em;
     }
 }
 
@@ -123,10 +139,13 @@
 
     .container {
         width: 100%;
+        padding-top: 0.05em;
+        padding-bottom: 0.05em;
     }
 
     .single-column-band {
-        margin: 0.05em 0.3em;
+        padding-left: 0.3em;
+        padding-right: 0.3em;
     }
 }
 
@@ -135,9 +154,12 @@
 
     .container {
         width: 100%;
+        padding-top: 0.025em;
+        padding-bottom: 0.025em;
     }
 
     .single-column-band {
-        margin: 0.025em 0.2em;
+        padding-left: 0.2em;
+        padding-right: 0.2em;
     }
 }
