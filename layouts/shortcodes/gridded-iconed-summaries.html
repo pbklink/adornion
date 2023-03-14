@@ -1,21 +1,13 @@
 {{ $columnCount := .Get "columnCount" }}
 {{ $heading := .Get "heading" }}
 {{ $type := .Get "type" }}
-{{ $singleColumnTextMargin := .Get "singleColumnTextMargin" }}
-{{ $backgroundColor := .Get "backgroundColor" }}
-{{ $pageBandBackgroundClass := partial "get-page-band-background-class" $backgroundColor }}
 
-<section class="gridded-iconed-summaries container {{ with $pageBandBackgroundClass }}{{ . }}{{ end }}">
+<section class="gridded-iconed-summaries">
     {{ with $heading }}
         <h2>{{ $heading }}</h2>
     {{ end }}
 
-    {{ $singleColumnTextMarginClass := "" }}
-    {{ if $singleColumnTextMargin }}
-        {{ $singleColumnTextMarginClass = "single-column-band" }}
-    {{ end }}
-
-    <div class="grid {{ $singleColumnTextMarginClass }}" style="grid-template-columns: repeat({{ $columnCount | default "3" }}, 1fr)">
+    <div class="grid" style="grid-template-columns: repeat({{ $columnCount | default "3" }}, 1fr)">
         {{ $pages := where (where .Page.RegularPagesRecursive "Type" $type) ".Params.featured" true }}
         {{ range first 6 (sort $pages ".Params.weight") }}
             {{ .Render "iconed-summary" }}
