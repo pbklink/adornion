@@ -1,7 +1,7 @@
 {{ $stripName := .Get "stripName" }}
 {{ $strip := index $.Page.Params $stripName }}
 {{ with $strip }}
-    <section class="captioned-large-icon-strip container">
+    <section class="captioned-large-icon-strip">
         <div class="grid">
             {{- $item_cols := (div 12 (.items_per_row | default 3)) }}
             {{- range .items }}
