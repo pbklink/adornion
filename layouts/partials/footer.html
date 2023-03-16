@@ -26,7 +26,17 @@
             <a href="{{ .Site.BaseURL }}imprint">imprint</a>
         </span>
     </section>
-    <section class="page-info">
-        <span class="media-size-display"></span>
+    <section class="page-info" onclick="toggleMediaSizeDisplayHidden(event)">
+        <span class="media-size-display{{ if not .Site.IsServer }} hidden{{ end }}"></span>
     </section>
 </footer>
+
+<script>
+    function toggleMediaSizeDisplayHidden(ev) {
+        if (ev.ctrlKey) {
+            const pageInfoElement = ev.currentTarget;
+            const mediaSizeDisplayElement = pageInfoElement.querySelector('.media-size-display');
+            mediaSizeDisplayElement.classList.toggle('hidden')
+        }
+    }
+</script>

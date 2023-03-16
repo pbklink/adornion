@@ -1,7 +1,7 @@
 
 params:
   dateformat: 02 Jan 2006
-  enableSourceMaps: true
+  # enableSourceMaps: false
 
   sassVars: # https://discourse.gohugo.io/t/initialize-sass-variables-from-hugo-templates/42053
     # z-index-base: 10000 # all z-index values set by adornion will be greater than this
