@@ -47,11 +47,11 @@
         "sourceMapIncludeSources" true
         "vars" site.Params.sassVars
     ) }}
-    {{ $customStyle := . | resources.ExecuteAsTemplate "custom.scss" . | resources.ToCSS $customStyleOptions }}
+    {{ $customStyle = . | resources.ExecuteAsTemplate "custom.scss" . | resources.ToCSS $customStyleOptions }}
     {{ if $isServer }}
-        {{ $customStyle = $resetStyle | fingerprint }}
+        {{ $customStyle = $customStyle | fingerprint }}
     {{ else }}
-        {{ $customStyle = $resetStyle | minify | fingerprint }}
+        {{ $customStyle = $customStyle | minify | fingerprint }}
     {{ end }}
 {{ end }}
 
@@ -67,7 +67,7 @@
 {{ end }}
 <link rel="stylesheet" href="{{ $resetStyle.RelPermalink }}" />
 <link rel="stylesheet" href="{{ $mainStyle.RelPermalink }}" />
-{{ with $customStyle}}
+{{ with $customStyle }}
     <link rel="stylesheet" href="{{ .RelPermalink }}" />
 {{ end }}
 <link rel="icon" href="{{ .Site.BaseURL }}{{ .Site.Params.favicon }}">
