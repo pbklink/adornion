@@ -1,6 +1,19 @@
 {
     "attributions": [
         {
+            "type": "Hugo Theme",
+            "item": "Adornion",
+            "itemUrl": "https://github.com/pbklink/adornion",
+            "creator": "Paul Klink",
+            "creatorUrl": "https://paul.klink.au",
+            "location": "Site",
+            "source": "GitHub",
+            "sourceUrl": "https://github.com/",
+            "adjustments": "",
+            "licence": "Attribution 3.0 Unported (CC BY 3.0) ",
+            "licenceUrl": "http://creativecommons.org/licenses/by/3.0/"
+        },
+        {
             "type": "Library",
             "item": "Hamburger",
             "itemUrl": "https://jonsuh.com/hamburgers/",

@@ -13,6 +13,8 @@
     }
     
     .page-band {
+        @include _page-band-base;
+
         &-background-a {
             @include _page-band-base;
             background-color: color.get(color.$page-band-a-background);
@@ -94,8 +96,8 @@
 
     .container {
         width: 960px;
-        padding-top: 0.5em;
-        padding-bottom: 0.5em;
+        padding-top: 0.6em;
+        padding-bottom: 0.6em;
     }
 
     .single-column-band {
@@ -109,8 +111,8 @@
 
     .container {
         width: 95%;
-        padding-top: 0.25em;
-        padding-bottom: 0.25em;
+        padding-top: 0.5em;
+        padding-bottom: 0.5em;
     }
 
     .single-column-band {
@@ -124,8 +126,8 @@
 
     .container {
         width: 100%;
-        padding-top: 0.1em;
-        padding-bottom: 0.1em;
+        padding-top: 0.4em;
+        padding-bottom: 0.4em;
     }
 
     .single-column-band {
@@ -139,8 +141,8 @@
 
     .container {
         width: 100%;
-        padding-top: 0.05em;
-        padding-bottom: 0.05em;
+        padding-top: 0.3em;
+        padding-bottom: 0.3em;
     }
 
     .single-column-band {
@@ -154,8 +156,8 @@
 
     .container {
         width: 100%;
-        padding-top: 0.025em;
-        padding-bottom: 0.025em;
+        padding-top: 0.3em;
+        padding-bottom: 0.3em;
     }
 
     .single-column-band {

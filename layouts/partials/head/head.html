@@ -13,7 +13,7 @@
 */}}
 {{ $enableSourceMaps := .Site.Params.enableSourceMaps }}
 {{ $resetStyleOptions := (dict "targetPath" "resetStyle.css" "outputStyle" "compressed" "enableSourceMap" .Site.Params.enableSourceMaps) }}
-{{ $resetStyle := resources.Get "adornion/gardevoir/index.css" | resources.ToCSS $resetStyleOptions }}
+{{ $resetStyle := resources.Get "adornion/gardevoir/index.css" | resources.ToCSS $resetStyleOptions | minify | fingerprint}}
 {{ $mainStyleOptions := (dict
     "transpiler" "dartsass"
     "targetPath" "mainStyle.css"
@@ -21,7 +21,7 @@
     "enableSourceMap" $enableSourceMaps 
     "vars" site.Params.sassVars
 ) }}
-{{ $mainStyle := resources.Get "adornion/scss/main.scss" | resources.ExecuteAsTemplate "main.scss" . | resources.ToCSS $mainStyleOptions }}
+{{ $mainStyle := resources.Get "adornion/scss/main.scss" | resources.ExecuteAsTemplate "main.scss" . | resources.ToCSS $mainStyleOptions | minify | fingerprint }}
 {{ $customStyle := "" }}
 {{ with resources.Get "scss/custom.scss" }}
     {{ $customStyleOptions := (dict
@@ -31,7 +31,7 @@
         "enableSourceMap" $enableSourceMaps 
         "vars" site.Params.sassVars
     ) }}
-    {{ $customStyle = . | resources.ExecuteAsTemplate "custom.scss" . | resources.ToCSS $customStyleOptions }}
+    {{ $customStyle = . | resources.ExecuteAsTemplate "custom.scss" . | resources.ToCSS $customStyleOptions  | minify | fingerprint }}
 {{ end }}
 
 <title>{{ if .IsHome }}{{ .Site.Title }}{{ else }}{{ .Title }} | {{ .Site.Title }}{{ end }}</title>

@@ -48,7 +48,7 @@
     }
 }
 
-@mixin _bulletted {
+@mixin _bulleted {
     @include _base;
 
     .captioned-large-icon-strip {
@@ -87,8 +87,8 @@
     }
 }
 
-@mixin _bulletted-smaller {
-    @include _bulletted;
+@mixin _bulleted-smaller {
+    @include _bulleted;
 
     .captioned-large-icon-strip .grid .highlight {
         margin-bottom: 0.8em;
@@ -137,14 +137,14 @@
 }
 
 @mixin narrower {
-    @include _bulletted;
+    @include _bulleted;
 }
 
 @mixin mobile {
-    @include _bulletted-smaller;
+    @include _bulleted-smaller;
 
 }
 
 @mixin mobilep {
-    @include _bulletted-smaller;
+    @include _bulleted-smaller;
 }

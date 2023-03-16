@@ -2,7 +2,6 @@
 {{ $maxCount := -1 }}
 
 {{ with $identifier }}
-    {{ printf "%#v" $identifier }}
     {{ $upperIdentifer := upper $identifier }}
     {{ $matches := findRE `~:HEADLINED-DATED:([[:digit:]]*)$` $upperIdentifer }}
     {{ if eq (len $matches) 1 }}

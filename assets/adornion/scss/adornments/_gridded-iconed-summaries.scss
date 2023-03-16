@@ -1,9 +1,4 @@
 @mixin selectors {
-    > h2 {
-        margin-top: 0.4em;
-        text-align: center;
-    }
-
     .grid {
         display: grid;
         margin-top: 0.7em;
@@ -51,32 +46,36 @@
     }
 }
 
+@mixin bulleted-selectors {
+    @include selectors;
+
+    .grid {
+        display: block;
+        font-size: 90%;
+
+        .iconed-summary {
+            margin-bottom: 1em;
+
+            .titled-summary {
+                .title {
+                    margin-bottom: .1em;
+                }
+            }
+        }
+    }
+}
+
 @mixin _base {
     .gridded-iconed-summaries {
         @include selectors;
     }
 }
 
-@mixin _bulletted {
-    @include _base;
-
+@mixin _bulleted {
     .gridded-iconed-summaries {
-        flex: 0 0 auto;
-    
-        .grid {
-            display: block;
-            font-size: 90%;
-    
-            .iconed-summary {
-                margin-bottom: 1em;
+        @include bulleted-selectors;
 
-                .titled-summary {
-                    .title {
-                        margin-bottom: .1em;
-                    }
-                }
-            }
-        }
+        flex: 0 0 auto;
     }
 }
 
@@ -97,13 +96,13 @@
 }
 
 @mixin narrower {
-    @include _bulletted;
+    @include _bulleted;
 }
 
 @mixin mobile {
-    @include _bulletted;
+    @include _bulleted;
 }
 
 @mixin mobilep {
-    @include _bulletted;
+    @include _bulleted;
 }
