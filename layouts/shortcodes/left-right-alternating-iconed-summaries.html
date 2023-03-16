@@ -1,17 +1,6 @@
-{{ $heading := .Get "heading" }}
 {{ $type := .Get "type" }}
-{{ $singleColumnTextMargin := .Get "singleColumnTextMargin" }}
-<section class="left-right-alternating-iconed-summaries container">
-    {{ with $heading }}
-        <h2>{{ $heading }}</h2>
-    {{ end }}
-
-    {{ $singleColumnTextMarginClass := "" }}
-    {{ if $singleColumnTextMargin }}
-        {{ $singleColumnTextMarginClass = "single-column-band" }}
-    {{ end }}
-
-    <div class="grid {{ $singleColumnTextMarginClass }}" style="grid-template-columns: repeat(2, 1fr)">
+<section class="left-right-alternating-iconed-summaries">
+    <div class="grid" style="grid-template-columns: repeat(2, 1fr)">
         {{ $pages := where .Page.RegularPagesRecursive "Type" $type }}
 
         {{ $left := true }}

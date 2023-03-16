@@ -1,0 +1,36 @@
+{{ $pages := sort (where .Page.Pages "Weight" "gt" 0) ".Params.weight" }}
+{{ if gt (len $pages) 0 }}
+    <section class="icon-bulleted-summaries">
+        {{ range $pages }}
+            {{ $iconResourcePath := .Params.iconResourcePath }}
+            {{ if eq $iconResourcePath nil }}
+                {{ errorf "Icon not specified in page %s" .Title }}
+            {{ else }}
+                {{ $getMatchResourceUrlParameters := newScratch }}
+                {{ $getMatchResourceUrlParameters.Set "page" . }}
+                {{ $getMatchResourceUrlParameters.Set "resourcePath" .Params.iconResourcePath }}
+                {{ $icon := partial "get-match-resource-path.html" $getMatchResourceUrlParameters }}
+            
+                {{ $iconUrl := $icon.RelPermalink}}
+                {{ $linkUrl := .RelPermalink }}
+                {{ $title := .Title }}
+                {{ partial
+                    "icon.html"
+                    (dict
+                        "containerClass" "icon-container"
+                        "title" $title
+                        "iconUrl" $iconUrl
+                        "linkUrl" $linkUrl
+                    )
+                }}
+
+                <div class="titled-summary">
+                    <div class="title">
+                        <a href="{{ $linkUrl }}">{{ $title }}</a>
+                    </div>
+                    <span class="summary">{{ .Summary }}</span>
+                </div>
+            {{ end }}
+        {{ end }}
+    </section>
+{{ end }}

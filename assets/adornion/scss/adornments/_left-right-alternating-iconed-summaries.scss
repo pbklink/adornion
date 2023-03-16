@@ -18,7 +18,7 @@
 
 @mixin _smaller {
     .left-right-alternating-iconed-summaries {
-        @include gridded-iconed-summaries.selectors;
+        @include gridded-iconed-summaries.bulleted-selectors;
 
         margin-top: 0;
 

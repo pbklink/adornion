@@ -1,0 +1,38 @@
+<div class="iconed-summary">
+    {{ $getMatchResourceUrlParameters := newScratch }}
+    {{ $getMatchResourceUrlParameters.Set "page" . }}
+    {{ $getMatchResourceUrlParameters.Set "resourcePath" .Params.iconResourcePath }}
+    {{ $icon := partial "get-match-resource-path.html" $getMatchResourceUrlParameters }}
+
+    {{ $iconUrl := $icon.RelPermalink}}
+    {{ $linkUrl := .RelPermalink }}
+    {{ $title := .Title }}
+    {{ partial
+        "icon.html"
+        (dict
+            "containerClass" "icon-container"
+            "title" $title
+            "iconUrl" $iconUrl
+            "linkUrl" $linkUrl
+        )
+    }}
+
+    <div class="titled-summary">
+        <span class="title">{{ $title }}</span>
+        <div class="summary">
+            <span>{{ .Summary }}</span>
+            {{ $readMoreUrl := .Params.readMoreUrl }}
+            {{ if $readMoreUrl }}
+                {{ $readMoreUrlIsPath := not (strings.Contains $readMoreUrl "//") }}
+                {{ if $readMoreUrlIsPath }}
+                    {{ if hasPrefix $readMoreUrl "/" }}
+                        {{ $readMoreUrl = ref . $readMoreUrl }}
+                    {{ else }}
+                        {{ $readMoreUrl = relref . $readMoreUrl }}
+                    {{ end }}
+                {{ end }}
+                <a class="read-more" href="{{ $readMoreUrl }}">Read more ...</a>
+            {{ end }}
+        </div>
+    </div>
+</div>

@@ -1,5 +1,5 @@
 <footer>
-    <div class="container">
+    <section class="container">
         <div class="contact">
             {{ $contact := .Site.Params.contact }}
             <div class="phone">
@@ -25,6 +25,8 @@
         <span class="imprint">
             <a href="{{ .Site.BaseURL }}imprint">imprint</a>
         </span>
-    </div>
-    <span class="media-size-display"></span>
+    </section>
+    <section class="page-info">
+        <span class="media-size-display"></span>
+    </section>
 </footer>
