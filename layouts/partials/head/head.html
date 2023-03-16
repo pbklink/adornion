@@ -11,17 +11,32 @@
     DartSass installation tutorial:
     https://www.brycewray.com/posts/2022/05/using-dart-sass-hugo-nitty-gritty/
 */}}
-{{ $enableSourceMaps := .Site.Params.enableSourceMaps }}
+{{ $isServer := .Site.IsServer }}
+{{ $enableSourceMaps := or .Site.Params.enableSourceMaps $isServer }}
+
 {{ $resetStyleOptions := (dict "targetPath" "resetStyle.css" "outputStyle" "compressed" "enableSourceMap" .Site.Params.enableSourceMaps) }}
-{{ $resetStyle := resources.Get "adornion/gardevoir/index.css" | resources.ToCSS $resetStyleOptions | minify | fingerprint}}
+{{ $resetStyle := resources.Get "adornion/gardevoir/index.css" | resources.ToCSS $resetStyleOptions }}
+{{ if $isServer }}
+    {{ $resetStyle = $resetStyle | fingerprint }}
+{{ else }}
+    {{ $resetStyle = $resetStyle | minify | fingerprint }}
+{{ end }}
+
 {{ $mainStyleOptions := (dict
     "transpiler" "dartsass"
     "targetPath" "mainStyle.css"
     "outputStyle" "compressed"
-    "enableSourceMap" $enableSourceMaps 
+    "enableSourceMap" $enableSourceMaps
+    "sourceMapIncludeSources" true
     "vars" site.Params.sassVars
 ) }}
-{{ $mainStyle := resources.Get "adornion/scss/main.scss" | resources.ExecuteAsTemplate "main.scss" . | resources.ToCSS $mainStyleOptions | minify | fingerprint }}
+{{ $mainStyle := resources.Get "adornion/scss/main.scss" | resources.ToCSS $mainStyleOptions }}
+{{ if $isServer }}
+    {{ $mainStyle = $mainStyle | fingerprint }}
+{{ else }}
+    {{ $mainStyle = $mainStyle | minify | fingerprint }}
+{{ end }}
+
 {{ $customStyle := "" }}
 {{ with resources.Get "scss/custom.scss" }}
     {{ $customStyleOptions := (dict
@@ -29,15 +44,27 @@
         "targetPath" "customStyle.css"
         "outputStyle" "compressed"
         "enableSourceMap" $enableSourceMaps 
+        "sourceMapIncludeSources" true
         "vars" site.Params.sassVars
     ) }}
-    {{ $customStyle = . | resources.ExecuteAsTemplate "custom.scss" . | resources.ToCSS $customStyleOptions  | minify | fingerprint }}
+    {{ $customStyle := . | resources.ExecuteAsTemplate "custom.scss" . | resources.ToCSS $customStyleOptions }}
+    {{ if $isServer }}
+        {{ $customStyle = $resetStyle | fingerprint }}
+    {{ else }}
+        {{ $customStyle = $resetStyle | minify | fingerprint }}
+    {{ end }}
 {{ end }}
 
 <title>{{ if .IsHome }}{{ .Site.Title }}{{ else }}{{ .Title }} | {{ .Site.Title }}{{ end }}</title>
 <meta charset="utf-8" />
 {{ .Site.Hugo.Generator }}
 <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+{{ with .Description }}
+    <meta name="description" content="{{ . }}" />
+{{ end }}
+{{ with .Keywords }}
+    <meta name="keywords" content="{{ . }}" />
+{{ end }}
 <link rel="stylesheet" href="{{ $resetStyle.RelPermalink }}" />
 <link rel="stylesheet" href="{{ $mainStyle.RelPermalink }}" />
 {{ with $customStyle}}

@@ -38,7 +38,6 @@ $_z-index-base: hugo.get-z-index-base();
         > .second-level-menu {
             display: flex;
             flex-direction: column;
-            align-items: left;
             z-index: $_z-index-base + 2; // make sure we are above tagline
             background-color: color.get(color.$narrow-header-nav-second-level-background);
             padding: .2em 0 .3em 1em;

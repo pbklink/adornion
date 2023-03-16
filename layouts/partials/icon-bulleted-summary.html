@@ -1,0 +1,30 @@
+{{ $page := . }}
+{{ $iconResourcePath := $page.Params.iconResourcePath }}
+{{ if eq $iconResourcePath nil }}
+    {{ errorf "Icon not specified in page %s" $page.Title }}
+{{ else }}
+    {{ $getMatchResourceUrlParameters := newScratch }}
+    {{ $getMatchResourceUrlParameters.Set "page" $page }}
+    {{ $getMatchResourceUrlParameters.Set "resourcePath" $page.Params.iconResourcePath }}
+    {{ $icon := partial "get-match-resource-path.html" $getMatchResourceUrlParameters }}
+
+    {{ $iconUrl := $icon.RelPermalink}}
+    {{ $linkUrl := $page.RelPermalink }}
+    {{ $title := $page.Title }}
+    {{ partial
+        "icon.html"
+        (dict
+            "containerClass" "icon-container"
+            "title" $title
+            "iconUrl" $iconUrl
+            "linkUrl" $linkUrl
+        )
+    }}
+
+    <div class="titled-summary">
+        <div class="title">
+            <a href="{{ $linkUrl }}">{{ $title }}</a>
+        </div>
+        <span class="summary">{{ $page.Summary }}</span>
+    </div>
+{{ end }}
