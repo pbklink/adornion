@@ -1,3 +1,5 @@
 {{ $iconedSummaryParameters := newScratch }}
 {{ $iconedSummaryParameters.Set "page" . }}
+{{ $iconedSummaryParameters.Set "linkUrl" .RelPermalink }}
+
 {{ partial "iconed-summary.html" $iconedSummaryParameters }}

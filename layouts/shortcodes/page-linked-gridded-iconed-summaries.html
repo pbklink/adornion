@@ -1,0 +1,16 @@
+{{ $columnCount := .Get "columnCount" }}
+{{ $parentPageUrl := (.Get "parentPageUrl") | default "./" }}
+
+<section class="gridded-iconed-summaries">
+    <div class="grid" style="grid-template-columns: repeat({{ $columnCount | default "3" }}, 1fr)">
+        {{ $parentPage := $.Page.GetPage $parentPageUrl }}
+        {{ if not $parentPage }}
+            {{ errorf "Parent Page does not exist: %s" $parentPageUrl }}
+        {{ else }}
+            {{ $pages := where $parentPage.RegularPagesRecursive ".Params.featured" true }}
+            {{ range first 6 (sort $pages ".Params.weight") }}
+                {{ .Render "page-linked-iconed-summary" }}
+            {{ end }}
+        {{ end }}
+    </div>
+</section>
