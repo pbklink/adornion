@@ -1,0 +1,47 @@
+{{ $page := .Get "page" }}
+{{ $linkUrl := .Get "linkUrl" }}
+{{ $pageParams := $page.Params }}
+
+<div class="iconed-summary">
+    {{ $getMatchResourceUrlParameters := newScratch }}
+    {{ $getMatchResourceUrlParameters.Set "page" $page }}
+    {{ $getMatchResourceUrlParameters.Set "resourcePath" $pageParams.iconResourcePath }}
+    {{ $icon := partial "get-match-resource-path.html" $getMatchResourceUrlParameters }}
+
+    {{ $iconUrl := $icon.RelPermalink}}
+    {{ $title := $page.Title }}
+    {{ partial
+        "icon.html"
+        (dict
+            "containerClass" "icon-container"
+            "title" $title
+            "iconUrl" $iconUrl
+            "linkUrl" $linkUrl
+        )
+    }}
+
+    <div class="titled-summary">
+        {{ if $linkUrl }}
+            <a href="{{ $linkUrl }}">
+        {{ end }}
+            <span class="title">{{ $title }}</span>
+        {{ if $linkUrl }}
+            </a>            
+        {{ end }}
+        <div class="summary">
+            <span>{{ $page.Summary }}</span>
+            {{ $readMoreUrl := $pageParams.readMoreUrl }}
+            {{ if $readMoreUrl }}
+                {{ $readMoreUrlIsPath := not (strings.Contains $readMoreUrl "//") }}
+                {{ if $readMoreUrlIsPath }}
+                    {{ if hasPrefix $readMoreUrl "/" }}
+                        {{ $readMoreUrl = ref $page $readMoreUrl }}
+                    {{ else }}
+                        {{ $readMoreUrl = relref $page $readMoreUrl }}
+                    {{ end }}
+                {{ end }}
+                <a class="read-more" href="{{ $readMoreUrl }}">Read more ...</a>
+            {{ end }}
+        </div>
+    </div>
+</div>

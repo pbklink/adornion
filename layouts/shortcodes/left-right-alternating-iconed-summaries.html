@@ -1,18 +1,24 @@
-{{ $type := .Get "type" }}
+{{ $parentPageUrl := (.Get "parentPageUrl") | default "./" }}
+
 <section class="left-right-alternating-iconed-summaries">
     <div class="grid" style="grid-template-columns: repeat(2, 1fr)">
-        {{ $pages := where .Page.RegularPagesRecursive "Type" $type }}
+        {{ $parentPage := $.Page.GetPage $parentPageUrl }}
+        {{ if not $parentPage }}
+            {{ errorf "Parent Page does not exist: %s" $parentPageUrl }}
+        {{ else }}
+            {{ $pages := $parentPage.RegularPagesRecursive }}
 
-        {{ $left := true }}
-        {{ range (sort $pages ".Params.weight") }}
-            {{ if $left }}
-                {{ .Render "iconed-summary" }}
-                <div></div>
-            {{ else }}
-                <div></div>
-                {{ .Render "iconed-summary" }}
+            {{ $left := true }}
+            {{ range (sort $pages ".Params.weight") }}
+                {{ if $left }}
+                    {{ .Render "iconed-summary" }}
+                    <div></div>
+                {{ else }}
+                    <div></div>
+                    {{ .Render "iconed-summary" }}
+                {{ end }}
+                {{ $left = not $left }}
             {{ end }}
-            {{ $left = not $left }}
         {{ end }}
     </div>
 </section>
