@@ -1,0 +1,36 @@
+{{ $params := .Params.mainImage }}
+{{ if not $params }}
+    <main>
+{{ else }}
+    {{ $imageResourcePath := $params.resourcePath }}
+    {{ if not $imageResourcePath }}
+        <main>
+    {{ else }}
+        {{ $getMatchResourceUrlParameters := newScratch }}
+        {{ $getMatchResourceUrlParameters.Set "page" . }}
+        {{ $getMatchResourceUrlParameters.Set "resourcePath" $imageResourcePath }}
+        {{ $imageResource := partial "get-match-resource-path.html" $getMatchResourceUrlParameters }}
+
+        {{ if not $imageResource }}
+            <main>
+        {{ else }}
+            <main
+                style="
+                    background-image:
+                        linear-gradient(
+                            {{ $params.gradientDirection | default "to right" }},
+                            {{ $params.gradientStartColor | default "#00000000" }} {{ $params.gradientStartPosition | default "0" }},
+                            {{ with $params.gradientMidPosition }} {{ . }}, {{ end }}
+                            {{ $params.gradientFinishColor | default "#00000000" }} {{ $params.gradientFinishPosition | default "100%" }}
+                        ),
+                        url('{{ $imageResource.RelPermalink | relURL }}');
+                    background-position: {{ with $params.backgroundPosition }} {{ . }}; {{ else }} left center; {{ end }}
+                    {{ with $params.backgroundColor }} background-color: {{ . }}; {{ end }}
+                    {{ with $params.backgroundSize }} background-size: {{ . }}; {{ end }}
+                    background-repeat: {{ with $params.backgroundRepeat }} {{ . }}; {{ else }} no-repeat; {{ end }}
+                    {{ with $params.height }} height: {{ . }}; {{ end }}
+                "
+            >
+        {{ end }}
+    {{ end }}
+{{ end }}
