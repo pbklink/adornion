@@ -2,24 +2,31 @@
     <section class="container">
         <div class="contact">
             {{ $contact := .Site.Params.contact }}
-            <div class="phone">
-                {{ $phone := $contact.phone }}
-                <span class="heading">{{ $phone.heading }}: </span>
-                <span class="data">
-                    <a href="tel:{{ $phone.number }}">
-                        {{ $phone.number }}
-                    </a>
-                </span>
-            </div>
-            <div id="email">
+            {{ with $contact }}
+                {{ $phone := .phone }}
+                {{ with $phone }}
+                    <div class="phone">
+                        <span class="heading">{{ .heading }}: </span>
+                        <span class="data">
+                            <a href="tel:{{ .number }}">
+                                {{ .number }}
+                            </a>
+                        </span>
+                    </div>
+                {{ end }}
+
                 {{ $email := $contact.email }}
-                <span class="heading">{{ $email.heading }}: </span>
-                <span class="data">
-                    <a href="mailto:{{ $email.address }}">
-                        {{ $email.address }}
-                    </a>
-                </span>
-            </div>
+                {{ with $email }}
+                    <div id="email">
+                        <span class="heading">{{ .heading }}: </span>
+                        <span class="data">
+                            <a href="mailto:{{ .address }}">
+                                {{ .address }}
+                            </a>
+                        </span>
+                    </div>
+                {{ end }}
+            {{ end }}
         </div>
 
         <span class="imprint">
