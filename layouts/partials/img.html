@@ -1,12 +1,13 @@
-{{ $src := .Get "src" }}
-{{ $class := .Get "class" }}
-{{ $alt := .Get "alt" }}
-{{ $title := .Get "title" }}
-{{ $height := .Get "height" }}
-{{ $width := .Get "width" }}
-{{ $loading := .Get "loading" }}
-{{ $linkUrl := .Get "linkUrl" }}
-{{ $anchorClass := .Get "anchorClass" }}
+{{ $src := index . "src" }}
+{{ $class := index . "class" }}
+{{ $alt := index . "alt" }}
+{{ $title := index . "title" }}
+{{ $height := index . "height" }}
+{{ $width := index . "width" }}
+{{ $loading := index . "loading" }}
+{{ $linkUrl := index . "linkUrl" }}
+{{ $anchorClass := index . "anchorClass" }}
+{{ $topBottomMargin := index . "topBottomMargin" }}
 
 {{ if $linkUrl }}
     <a href="{{ $linkUrl }}" {{ with $anchorClass }}class="{{ . }}"{{ end }}>
@@ -14,12 +15,13 @@
 
 <img 
     src="{{$src}}"
-    {{ with $class }}class="{{$class}}"{{ end }}
-    {{ with $alt }}alt="{{$alt}}"{{ end }}
-    {{ with $title }}title="{{$title}}"{{ end }}
-    {{ with $height }}height="{{$height}}"{{ end }}
-    {{ with $width }}width="{{$width}}"{{ end }}
-    {{ with $loading }}loading="{{$loading}}"{{ end }}
+    {{ with $class }}class="{{ . }}"{{ end }}
+    {{ with $alt }}alt="{{ . }}"{{ end }}
+    {{ with $title }}title="{{ . }}"{{ end }}
+    {{ with $height }}height="{{ . }}"{{ end }}
+    {{ with $width }}width="{{ . }}"{{ end }}
+    {{ with $loading }}loading="{{ . }}"{{ end }}
+    {{ with $topBottomMargin }}style="margin-top: {{ . }}; margin-bottom: {{ . }}"{{ end }}
 />
 
 {{ if $linkUrl }}

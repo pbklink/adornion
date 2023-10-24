@@ -1,9 +1,26 @@
-{{ partial "img.html" 
-    .Get "src" 
-    .Get "class"
-    .Get "alt"
-    .Get "title"
-    .Get "height"
-    .Get "width"
-    .Get "loading"
-}}
+{{ $src := .Get "src" }}
+
+{{ if not $src }}
+    {{ errorf "'%s': image src not defined" $.Page.Title }}
+{{ else }}
+    {{ $initialChars := substr $src 0 4 }}
+    {{ if (ne $initialChars "http") }}
+        {{ $getMatchResourceUrlParameters := newScratch }}
+        {{ $getMatchResourceUrlParameters.Set "page" $.Page }}
+        {{ $getMatchResourceUrlParameters.Set "resourcePath" $src }}
+        {{ $src := partial "get-match-resource-path.html" $getMatchResourceUrlParameters }}
+    {{ end }}
+
+    {{ partial "img.html" 
+        (dict
+            "src" $src
+            "class" (.Get "class")
+            "alt" (.Get "alt")
+            "title" (.Get "title")
+            "height" (.Get "height")
+            "width" (.Get "width")
+            "loading" (.Get "loading")
+            "topBottomMargin" (.Get "topBottomMargin")
+        )
+    }}
+{{ end }}

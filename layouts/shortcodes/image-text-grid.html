@@ -14,18 +14,19 @@
                     {{ $getMatchResourcePath.Set "resourcePath" $image.resourcePath }}
                     {{ $imageResource := partial "get-match-resource-path.html" $getMatchResourcePath }}
 
-                    {{ $imgParams := newScratch }}
-                    {{ $imgParams.Set "src" $image.resourcePath }}
-                    {{ $imgParams.Set "class" $image.class }}
-                    {{ $imgParams.Set "alt" $image.alt }}
-                    {{ $imgParams.Set "title" $image.title }}
-                    {{ $imgParams.Set "height" $image.height }}
-                    {{ $imgParams.Set "width" $image.width }}
-                    {{ $imgParams.Set "loading" $image.loading }}
-                    {{ $imgParams.Set "linkUrl" $url }}
-                    {{ $imgParams.Set "anchorClass" $image.anchorClass }}
-
-                    {{ partial "img.html" $imgParams }}
+                    {{ partial "img.html"
+                        (dict
+                            "src" $image.resourcePath
+                            "class" $image.class
+                            "alt" $image.alt
+                            "title" $image.title
+                            "height" $image.height
+                            "width" $image.width
+                            "loading" $image.loading
+                            "linkUrl" $url
+                            "anchorClass" $image.anchorClass
+                        )
+                    }}
                 {{ else }}
                     <div></div>
                 {{ end }}
