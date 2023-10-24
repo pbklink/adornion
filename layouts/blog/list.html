@@ -3,7 +3,7 @@
 
     <section class="container">
         <section class="single-column-band">
-            {{ $allPages := .Page.RegularPagesRecursive }}
+            {{ $allPages := where .Page.RegularPagesRecursive ".Draft" false }}
             {{ $paginator := .Paginate $allPages.ByDate.Reverse 10 }}
             {{ template "_internal/pagination.html" . }}
             <section class="blog-entry-summaries">
