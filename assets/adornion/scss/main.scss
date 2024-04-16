@@ -23,6 +23,7 @@
 @use 'adornments/left-right-alternating-iconed-summaries';
 @use 'adornments/light-bordered-table';
 @use 'adornments/gridded-photoswipe-pages';
+@use 'adornments/x-small-font';
 
 // Initialize mixins
 @include hugo.initialize;
@@ -52,6 +53,8 @@
 // Mixins which appy to all breakpoints
 @include light-bordered-table.all;
 @include gridded-photoswipe-pages.all;
+@include gridded-photoswipe-pages.all;
+@include x-small-font.all;
 
 // Breakpoints
 @include breakpoint.create(breakpoint.$infinite) {
