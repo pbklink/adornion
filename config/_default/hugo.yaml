@@ -40,5 +40,9 @@ module:
   - source: node_modules/gardevoir/dist
     target: assets/adornion/gardevoir
 
+  # Normalize
+  - source: node_modules/@csstools/normalize.css
+    target: assets/adornion/normalize.css
+
   - source: data/adornion
     target: data/adornion

@@ -21,5 +21,8 @@
   "devDependencies": {
     "gardevoir": "^1.0.0",
     "photoswipe": "^5.2.0"
+  },
+  "dependencies": {
+    "@csstools/normalize.css": "^12.1.1"
   }
 }

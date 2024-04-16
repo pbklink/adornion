@@ -6,7 +6,7 @@
         https://github.com/necolas/normalize.css/
         https://github.com/csstools/normalize.css/
     Make sure you mount CSS folder in config.toml
-    Also make sure that any required node_modules files are included in GIT repository
+    Also make sure that any required node_modules files are included in GIT repository by using gitignore negate patterns
 
     DartSass installation tutorial:
     https://www.brycewray.com/posts/2022/05/using-dart-sass-hugo-nitty-gritty/
@@ -15,7 +15,7 @@
 {{ $enableSourceMaps := or .Site.Params.enableSourceMaps $isServer }}
 
 {{ $resetStyleOptions := (dict "targetPath" "resetStyle.css" "outputStyle" "compressed" "enableSourceMap" .Site.Params.enableSourceMaps) }}
-{{ $resetStyle := resources.Get "adornion/gardevoir/index.css" | resources.ToCSS $resetStyleOptions }}
+{{ $resetStyle := resources.Get "adornion/normalize.css/normalize.css" | resources.ToCSS $resetStyleOptions }}
 {{ if $isServer }}
     {{ $resetStyle = $resetStyle | fingerprint }}
 {{ else }}

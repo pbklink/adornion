@@ -23,5 +23,11 @@ node_modules/gardevoir/*
 node_modules/gardevoir/dist/*
 !node_modules/gardevoir/dist/index.css
 
+!node_modules/@csstools/
+node_modules/@csstools/*
+!node_modules/@csstools/normalize.css
+node_modules/@csstools/normalize.css/*
+!node_modules/@csstools/normalize.css/normalize.css
+
 .hugo_build.lock
 .vscode
