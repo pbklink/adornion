@@ -1,6 +1,44 @@
 @use 'libs/color/color';
 
 @mixin _base {
+    // Hugo adds spurious empty paragraphs around shortcodes in circumstances.
+    // Some discussion:
+    // https://discourse.gohugo.io/t/shortcodes-and-p-tags/2164/7
+    // https://github.com/gohugoio/hugo/issues/935
+    // https://github.com/gohugoio/hugo/issues/1148
+    // https://discourse.gohugo.io/t/empty-p-p-tags-generated-when-using-shortcodes/3439
+
+    // Workaround here is to hide these paragraphs as per last link above.
+
+    :where(p:empty) {
+        display:none;
+    }
+
+    :where(h1, h2, h3, h4, h5, h6) {
+        margin: 0;
+    }
+
+    :where(p) {
+        margin: 0;
+    }
+
+    :where(p + p) {
+        margin-top: 0.6rem;
+    }
+
+    :where(p + pre) {
+        margin-top: 0.6rem;
+    }
+
+    :where(pre + p) {
+        margin-top: 0.6rem;
+    }
+
+    // Alternatively, could leave empty paragraphs but control when they display a margin
+    // :where(p) {
+    //     margin: 0;
+    // }
+
     :where(ul, ol) {
         padding-left: revert; // Restore padding on left to show numbers and bullets
         margin: .6em 0; // Reduce top bottom padding
@@ -11,6 +49,7 @@
     }
 
     body {
+        margin: 0;
         // Stops initial animations until page loads.
         &.is-preload {
             *, *:before, *:after {
@@ -49,6 +88,15 @@
         flex-direction: column;
         align-items: center;
         width: 100%;
+    }
+
+    pre {
+        overflow-y: auto;
+    }
+
+    menu {
+        margin: 0;
+        padding: 0;
     }
 }
 
